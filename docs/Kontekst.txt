@@ -1,0 +1,65 @@
+﻿Kontekst projektu “System Zarządzania Turniejem E-sportowym”
+1. Krótki opis systemu
+Aplikacja wspierająca organizację i przeprowadzenie turnieju w grach komputerowych, od ogłoszenia turnieju i wprowadzenia drużyn, przez generowanie drabinki i prowadzenie meczów, po wyłonienie zwycięzcy i publikację wyników.
+
+2. Zakres systemu
+(wstępna propozycja):
+* utworzenie drużyn przez zalogowanych użytkowników (kapitan) i zapraszanie do nich zawodników,
+* dołączanie zawodników do drużyny na zaproszenie kapitana i uzupełnianie przez nich danych o sobie,
+* przygotowanie turnieju przez organizatora (gra, termin, zasady, ilość drużyn),
+* wprowadzenie drużyn przez organizatora,
+* przebieg rozgrywek (drabinka lub tabela, harmonogram, wyniki meczów),
+* rozstrzyganie sporów w trakcie turnieju (możliwość wniesienia protestu przez kapitana),
+* informowanie uczestników i widzów o stanie turnieju,
+* zakończenie turnieju i publikacja wyników końcowych,
+* system przechowuje link do transmisji wideo na innej platformie.
+propozycja do wspólnego uzgodnienia i ewentualnego rozszerzenia
+
+3. Założenia i ograniczenia
+* System jest przygotowany na parę różnych gier (Np. Counter Strike 2, Overwatch, Dota 2, League of Legends, Valorant). Turniej może mieć przypisaną tylko jedną grę i można przypisać do niego tylko drużyny utworzone dla tej gry.
+* W turniejach mogą brać udział tylko 5-osobowe drużyny.
+* Kapitan tworzy drużynę i zaprasza do niej zawodników, a zawodnik po dołączeniu sam uzupełnia dane o sobie.
+* Kilka obsługiwanych formatów rozgrywek (single elimination, double elimination, liga punktowa)
+* Każdy turniej, drużyna i użytkownik ma własne, unikalne id.
+* Kapitan może zgłosić drużynę do turnieju by pojawić się w puli drużyn. Organizator może wylosować drużyny z puli, wybrać najszybsze zgłoszenia, lub wybrać dowolne drużyny po id.
+________________
+4. Aktorzy
+Aktor
+	Opis
+	Organizator turnieju
+	Tworzy turniej (ustawia jego format, grę, datę itp.) i dodaje do niego drużyny. Następnie zarządza jego przebiegiem. Rola organizatora musi być przypisana przez administratora.
+
+	Administrator systemu
+	Zarządza kontami, rolami i działaniem platformy
+
+	Kapitan drużyny
+	Tworzy i usuwa drużynę oraz zaprasza do niej zawodników i usuwa ich ze składu. Może stworzyć wiele drużyn. Nie może edytować, ani usuwać drużyn innych kapitanów.
+
+	Zawodnik
+	Członek drużyny, ma własne konto. Dołącza do drużyny na zaproszenie kapitana i sam edytuje dane o sobie. Może być aktywny w jednej drużynie (na grę) na raz.
+
+	Użytkownik**
+	Osoba śledząca turniej, najczęściej niezalogowany
+
+	Serwis powiadomień
+	Zewnętrzna usługa dostarczająca wiadomości do uczestników. Np. Powiadomienia o meczach.
+
+	Platforma streamingowa
+	Zewnętrzny serwis transmisji (np. Twitch, YouTube)
+
+	Sponsor (opcjonalnie)
+	Osoba lub firma sponsorująca nagrody w turnieju. Turniej nie musi mieć sponsora.
+	** jeden użytkownik może mieć parę roli. Np. może być kapitanem w jednej drużynie i organizatorem.
+
+5. Słownik pojęć 
+* Turniej – zorganizowane rozgrywki w jednej grze, z określonym terminem, formatem i regulaminem.
+* Drużyna – grupa zawodników zgłoszona do turnieju, jej skład tworzy kapitan, zapraszając zawodników.
+* Kapitan – zalogowany użytkownik, który posiada własną drużynę i zaprasza do niej zawodników.
+* Zawodnik – osoba w składzie drużyny, dołącza na zaproszenie kapitana i sama uzupełnia dane o sobie.
+* Mecz – pojedyncze spotkanie dwóch drużyn w ramach turnieju (może składać się z kilku map/rund, np. BO1, BO3).
+* Etap – etap turnieju (np. ćwierćfinał, faza grupowa).
+* Drabinka – schemat pokazujący, kto z kim gra i kto awansuje dalej.
+* Seeding – rozstawienie drużyn w drabince.
+* Protest – formalne zgłoszenie sprzeciwu wobec wyniku lub zachowania przeciwnika.
+* Walkower (WO) – wygrana bez rozegrania meczu.
+(używajcie w swoich etapach, żeby wszystko było spójne)
