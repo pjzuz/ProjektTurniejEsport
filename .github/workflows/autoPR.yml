@@ -1,0 +1,46 @@
+name: Auto Create Pull Request
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - master
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz kod repozytorium
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Utwórz Pull Request (jeśli jeszcze nie istnieje)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH_NAME="${GITHUB_REF_NAME}"
+          BASE_BRANCH="main"
+
+          # Sprawdzenie, czy istnieje już otwarty PR dla tego brancha
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --base "$BASE_BRANCH" --state open --json number --jq 'length')
+
+          if [ "$EXISTING_PR" -eq 0 ]; then
+            # Sprawdzenie, czy na branchu są nowe commity względem gałęzi bazowej
+            COMMITS_AHEAD=$(git rev-list --count "origin/$BASE_BRANCH..HEAD")
+
+            if [ "$COMMITS_AHEAD" -gt 0 ]; then
+              gh pr create \
+                --base "$BASE_BRANCH" \
+                --head "$BRANCH_NAME" \
+                --fill
+            else
+              echo "Brak nowych commitów względem $BASE_BRANCH – PR zostanie utworzony przy pierwszym commicie."
+            fi
+          else
+            echo "Pull Request dla gałęzi $BRANCH_NAME już istnieje – pomijam."
+          fi
