@@ -1,5 +1,5 @@
 ﻿Kontekst projektu “System Zarządzania Turniejem E-sportowym”
-1. Krótki opis systemu
+1. Krótki opis systemu.
 Aplikacja wspierająca organizację i przeprowadzenie turnieju w grach komputerowych, od ogłoszenia turnieju i wprowadzenia drużyn, przez generowanie drabinki i prowadzenie meczów, po wyłonienie zwycięzcy i publikację wyników.
 
 2. Zakres systemu
