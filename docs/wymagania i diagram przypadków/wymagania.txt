@@ -1,0 +1,160 @@
+Wymagania – System Zarządzania Turniejem E-sportowym
+
+Priorytety MoSCoW:
+* M - Must
+* S - Should
+* C - Could
+* W - Won't
+________________
+1. Wymagania funkcjonalne
+
+Organizator turnieju
+* US-01 (M) Jako organizator chcę utworzyć turniej, aby otworzyć zgłoszenia drużyn.
+* US-02 (M) Jako organizator chcę konfigurować turniej (gra, termin, format, limit drużyn), aby określić zasady rozgrywek.
+* US-03 (M) Jako organizator chcę wylosować drużyny z puli zgłoszeń, aby wybrać uczestników.
+* US-04 (S) Jako organizator chcę wybrać najszybsze zgłoszenia z puli, aby wybrać uczestników.
+* US-05 (S) Jako organizator chcę wybrać uczestników po ID, aby ręcznie wybrać uczestników.
+* US-06 (S) Jako organizator chcę dodać link do transmisji na żywo, aby widzowie mogli oglądać mecz.
+* US-07 (M) Jako organizator chcę wprowadzić wynik meczu, aby zaktualizować drabinkę.
+* US-08 (S) Jako organizator chcę rozpatrzyć protest, aby rozstrzygnąć spór.
+
+Kapitan
+* US-09 (M) Jako kapitan chcę utworzyć drużynę, aby zgłosić ją do turnieju.
+* US-10 (M) Jako kapitan chcę wysłać zaproszenie do drużyny, aby uzupełnić skład.
+* US-11 (S) Jako kapitan chcę usunąć zawodnika ze składu, aby zwolnić miejsce.
+* US-12 (M) Jako kapitan chcę zgłosić drużynę do turnieju, aby znalazła się w puli zgłoszeń.
+* US-13 (S) Jako kapitan chcę wnieść oficjalny protest, aby zakwestionować wynik meczu.
+
+Zawodnik
+* US-14 (M) Jako zawodnik chcę przyjąć zaproszenie do drużyny, aby dołączyć do składu.
+* US-15 (M) Jako zawodnik chcę uzupełnić dane o sobie, aby kapitan i organizator mogli mnie zidentyfikować.
+
+Użytkownik
+* US-16 (M) Jako użytkownik chcę przeglądać drabinkę, harmonogram i wyniki turnieju, aby śledzić jego przebieg.
+* US-17 (M) Jako użytkownik chcę założyć konto, aby korzystać z funkcji drużyn i turniejów.
+* US-18 (M) Jako użytkownik chcę się zalogować, aby uzyskać dostęp do swoich funkcji.
+
+Administrator
+* US-19 (M) Jako administrator chcę przypisać użytkownikowi rolę organizatora, aby mógł tworzyć turnieje.
+
+System
+* SYS-01 (M) System musi opublikować ogłoszenie turnieju po zakończeniu konfiguracji turnieju.
+* SYS-02 (M) System musi otworzyć pulę zgłoszeń po opublikowaniu ogłoszenia turnieju.
+* SYS-03 (M) System musi dodać zawodnika do składu po przyjęciu zaproszenia, jeśli nie jest aktywny w innej drużynie.
+* SYS-04 (M) System musi odrzucić dołączenie zawodnika po przyjęciu zaproszenia, jeśli jest aktywny w innej drużynie.
+* SYS-05 (M) System musi umieścić drużyny w puli turnieju po zgłoszeniu.
+* SYS-06 (M) System musi wygenerować drabinkę po wyborze drużyn.
+* SYS-07 (M) System musi wygenerować harmonogram spotkań po wyborze drużyn.
+* SYS-08 (S) System musi wysłać powiadomienie o nadchodzącym meczu 30 minut przed jego rozpoczęciem.
+* SYS-09 (M) System musi aktualizować drabinkę po wprowadzeniu wyniku.
+* SYS-10 (M) System musi ogłosić zwycięzcę po rozegraniu wszystkich meczów.
+* SYS-11 (M) System musi opublikować wyniki końcowe po ogłoszeniu zwycięzcy.
+________________
+2. Kryteria akceptacji
+
+US-01 Utworzenie turnieju
+* Zakładając, że użytkownik ma rolę organizatora, gdy tworzy turniej, wtedy turniej powstaje z unikalnym ID.
+* Zakładając, że użytkownik nie ma roli organizatora, gdy próbuje utworzyć turniej, wtedy system odmawia.
+
+US-02 Konfiguracja turnieju
+* Zakładając, że turniej został utworzony, gdy organizator poda grę, termin, format i limit drużyn, wtedy ustawienia są zapisane.
+* Zakładając, że brakuje gry, terminu lub limitu drużyn, gdy organizator zapisuje konfigurację, wtedy system wyświetla błąd.
+
+US-03 Losowanie drużyn
+* Zakładając, że zakończył się czas zgłoszeń, gdy organizator wybiera losowanie, wtedy do turnieju trafia tyle drużyn, ile wynosi limit (lub mniej, jeśli zgłoszono mniej).
+* Zakładając, że zgłoszono mniej niż 2 drużyny, gdy organizator próbuje wylosować, wtedy system blokuje start turnieju.
+
+US-07 Wynik meczu
+* Zakładając, że mecz został rozegrany, gdy organizator wprowadza wynik, wtedy zwycięzca awansuje w drabince.
+* Zakładając, że użytkownik nie jest organizatorem tego turnieju, gdy próbuje wprowadzić wynik, wtedy system odmawia.
+
+US-08 Rozpatrzenie protestu
+* Zakładając, że protest ma status „do rozpatrzenia", gdy organizator go uznaje, wtedy wynik jest zmieniony lub przypisany jest walkower, a drabinka się aktualizuje.
+* Zakładając, że protest ma status „do rozpatrzenia", gdy organizator go odrzuca, wtedy wynik zostaje, a kapitan widzi decyzję.
+
+US-09 Utworzenie drużyny
+* Zakładając, że kapitan jest zalogowany, gdy wybierze obsługiwaną grę i poda nazwę, wtedy drużyna powstaje z unikalnym ID, a kapitan jest jej członkiem.
+* Zakładając, że nazwa jest pusta lub gra nieobsługiwana, gdy kapitan zatwierdza formularz, wtedy system wyświetla błąd i nie tworzy drużyny.
+
+US-10 Zaproszenie
+* Zakładając, że drużyna ma mniej niż 5 zawodników, gdy kapitan zaprasza użytkownika, wtedy zaproszenie ma status „oczekuje".
+* Zakładając, że drużyna ma 5 zawodników, gdy kapitan zaprasza kolejnego, wtedy system odmawia z komunikatem.
+
+US-11 Usunięcie zawodnika
+* Zakładając, że zawodnik jest w składzie drużyny kapitana, gdy kapitan go usuwa, wtedy zawodnik znika ze składu.
+* Zakładając, że zawodnik jest w składzie drużyny innego kapitana, gdy kapitan próbuje go usunąć, wtedy system odmawia.
+
+US-12 Zgłoszenie drużyny
+* Zakładając, że drużyna ma 5 zawodników i grę zgodną z turniejem, gdy kapitan zgłasza ją przed końcem terminu, wtedy drużyna trafia do puli.
+* Zakładając, że skład jest niepełny, gra jest inna lub termin minął, gdy kapitan zgłasza drużynę, wtedy system odrzuca zgłoszenie z podaniem powodu.
+
+US-13 Protest
+* Zakładając, że wynik meczu jest wprowadzony, gdy kapitan jednej z drużyn składa protest z uzasadnieniem, wtedy protest ma status „do rozpatrzenia".
+* Zakładając, że kapitan nie należy do żadnej z drużyn w meczu, gdy próbuje wnieść protest, wtedy system odmawia.
+
+US-14 Przyjęcie zaproszenia
+* Zakładając, że zawodnik otrzymał zaproszenie i nie jest aktywny w innej drużynie tej gry, gdy je przyjmuje, wtedy zostaje dodany do składu.
+* Zakładając, że zawodnik jest aktywny w innej drużynie tej gry, gdy przyjmuje zaproszenie, wtedy dołączenie jest odrzucone z komunikatem.
+
+US-15 Uzupełnienie danych zawodnika
+* Zakładając, że zawodnik jest zalogowany, gdy poda wymagane dane (nick, imię i nazwisko), wtedy dane są zapisane i widoczne dla kapitana i organizatora.
+* Zakładając, że brakuje wymaganych danych, gdy zawodnik je zapisuje, wtedy system wyświetla błąd.
+
+US-16 Przeglądanie turnieju
+* Zakładając, że użytkownik jest niezalogowany, gdy otwiera stronę turnieju, wtedy widzi drabinkę, harmonogram i wyniki, ale nie widzi danych osobowych zawodników.
+
+US-17 Założenie konta
+* Zakładając, że adres e-mail nie jest zajęty, gdy użytkownik wypełni formularz rejestracji, wtedy konto powstaje z unikalnym ID.
+* Zakładając, że adres e-mail jest już zajęty, gdy użytkownik wysyła formularz rejestracji, wtedy system odrzuca rejestrację z komunikatem.
+
+US-18 Logowanie
+* Zakładając, że dane logowania są poprawne, gdy użytkownik się loguje, wtedy ma dostęp do funkcji swoich ról.
+* Zakładając, że hasło jest błędne, gdy użytkownik się loguje, wtedy system odmawia dostępu.
+
+US-19 Rola organizatora
+* Zakładając, że administrator jest zalogowany, gdy nadaje użytkownikowi rolę organizatora, wtedy ten użytkownik może od razu tworzyć turnieje.
+
+SYS-01 Ogłoszenie turnieju
+* Zakładając, że organizator utworzył turniej, gdy konfiguracja jest kompletna, wtedy turniej jest widoczny publicznie.
+
+SYS-02 Otwarcie puli zgłoszeń
+* Zakładając, że ogłoszenie turnieju zostało opublikowane, gdy kapitan zgłasza drużynę, wtedy zgłoszenie trafia do puli.
+
+SYS-03 Dodanie zawodnika do składu
+* Zakładając, że zawodnik przyjął zaproszenie i nie jest aktywny w innej drużynie tej gry, gdy system je przetwarza, wtedy zawodnik jest w składzie drużyny.
+
+SYS-04 Odrzucenie dołączenia zawodnika
+* Zakładając, że zawodnik przyjął zaproszenie, ale jest aktywny w innej drużynie tej gry, gdy system je przetwarza, wtedy dołączenie jest odrzucone, a skład drużyny się nie zmienia.
+
+SYS-05 Pula turnieju
+* Zakładając, że drużyna ma 5 zawodników, gdy kapitan ją zgłasza w terminie, wtedy drużyna pojawia się w puli.
+* Zakładając, że skład jest niepełny, gdy kapitan ją zgłasza, wtedy drużyna nie trafia do puli.
+
+SYS-06 Drabinka
+* Zakładając, że wybrano drużyny do turnieju, gdy system generuje drabinkę, wtedy każda drużyna występuje w niej dokładnie raz.
+
+SYS-07 Harmonogram
+* Zakładając, że wybrano drużyny do turnieju, gdy system generuje harmonogram, wtedy każdy mecz ma przypisane drużyny i termin.
+
+SYS-08 Powiadomienie
+* Zakładając, że mecz zaczyna się za 30 minut, gdy serwis powiadomień jest dostępny, wtedy każdy uczestnik dostaje wiadomość z godziną i przeciwnikiem.
+* Zakładając, że serwis jest niedostępny, gdy wysyłka się nie uda, wtedy system ponawia próbę i nie blokuje turnieju.
+
+SYS-09 Aktualizacja drabinki
+* Zakładając, że wprowadzono wynik meczu, gdy system go przetwarza, wtedy zwycięzca awansuje do kolejnego meczu.
+
+SYS-10 Ogłoszenie zwycięzcy
+* Zakładając, że wszystkie mecze mają wprowadzony wynik, gdy system aktualizuje drabinkę, wtedy ogłasza zwycięzcę.
+* Zakładając, że co najmniej jeden mecz nie ma wyniku, gdy system aktualizuje drabinkę, wtedy turniej nie jest kończony.
+
+SYS-11 Wyniki końcowe
+* Zakładając, że zwycięzca został ogłoszony, gdy system publikuje wyniki końcowe, wtedy są widoczne także dla niezalogowanych użytkowników.
+________________
+3. Wymagania niefunkcjonalne
+
+* NFR-01 (Wydajność) Podgląd drabinki i wyników otwiera się w czasie poniżej 2 s przy 100 równoczesnych użytkownikach.
+* NFR-02 (Bezpieczeństwo) Hasła użytkowników są przechowywane w postaci haszy, a nie jawnym tekstem.
+* NFR-03 (Bezpieczeństwo) Kapitan może edytować tylko własne drużyny, a organizator tylko własne turnieje; próba edycji cudzych zasobów kończy się odmową (błąd 403).
+* NFR-04 (Ochrona danych) Dane osobowe zawodników są niewidoczne dla niezalogowanych użytkowników.
+* NFR-05 (Niezawodność) Niedostępność serwisu powiadomień nie przerywa turnieju.
+* NFR-06 (Rozszerzalność) Dodanie nowej gry nie wymaga zmian w kodzie rdzenia systemu.
